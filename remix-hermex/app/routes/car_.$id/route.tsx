@@ -1,6 +1,21 @@
-import type { Route } from "../+types/_index";
+import type { LoaderFunctionArgs } from "react-router";
+import { api } from "~/services/api.server";
 
-export default function CarDetailRoute({ params }: Route.CarDetailRouteProps) {
+export async function loader({ params }: LoaderFunctionArgs) {
+  const { id } = params;
+
+  if (!id) {
+    throw new Response("ID nao fornecido", { status: 400 });
+  }
+  try {
+    const car = await api.getCarById(id);
+    return car;
+  } catch (error) {
+    throw new Response("Carro nao encontrado", { status: 404 });
+  }
+}
+
+export default function CarDetailRoute({ params }: { params: { id: string } }) {
   return (
     <div>
       <h1>Carro Detalhe: {params.id}</h1>
