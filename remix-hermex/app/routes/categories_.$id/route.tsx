@@ -152,3 +152,33 @@ export default function CategoryDetailRouteRoute() {
     </div>
   );
 }
+
+export function ErrorBoundary() {
+  return (
+    <div>
+      <Header />
+      <Breadcrumbs
+        items={[
+          { label: "Categorias", path: "/categories" },
+          { label: "Categoria não encontrada" },
+        ]}
+      />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center">
+          <h1 className="text-heading-lg text-neutral-black mb-4">
+            Categoria não encontrada
+          </h1>
+          <p className="text-body-md text-neutral-text mb-6">
+            A categoria que você procura não existe ou foi removida.
+          </p>
+          <a
+            href="/categories"
+            className="bg-primary-pure hover:bg-primary-dark text-neutral-white font-medium px-6 py-3 rounded-lg transition-colors inline-block"
+          >
+            Ver todas as categorias
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
